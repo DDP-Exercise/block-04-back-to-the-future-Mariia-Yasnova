@@ -35,3 +35,27 @@
 
 // HINT:
 // setInterval(functionName, 1000); will call functionName() every 1000 miliseconds.
+"use strict";
+
+import * as Model from "./model.time.js";
+import * as AnalogueView from "./view.analague.js";
+import * as DigitalView from "./view.digital.js";
+
+function update() {
+    const time = Model.getTime();
+
+    AnalogueView.render(time);
+    DigitalView.render(time);
+}
+
+// обновление каждую секунду
+setInterval(update, 1000);
+
+// первый запуск
+update();
+
+// 💾 сохранение времени
+document.querySelector("#saveBtn").addEventListener("click", () => {
+    const time = Model.getTime();
+    localStorage.setItem("savedTime", JSON.stringify(time));
+});
